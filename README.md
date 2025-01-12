@@ -59,7 +59,17 @@ Le dictionnaire des variables est present dans le dossier "data".
 
 ## 3. Pre-processing
 
+Le pre-processing est réalisé dans le fichier preprocessing.py.
+
 ## 4. Tentatives de modèles de machine learning
 
 ## 5. Performances et analyse des résultats
 
+## 6. Prérequis
+Le projet nécessite les bibliothèques suivantes :
+- pandas
+- numpy
+- scikit-learn
+
+Ces bibliothèques peuvent être installées en utilisant pip :
+- pip install pandas numpy scikit-learn
