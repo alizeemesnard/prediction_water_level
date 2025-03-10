@@ -59,9 +59,43 @@ Le dictionnaire des variables est present dans le dossier "data".
 
 ## 3. Pre-processing
 
-Le pre-processing est réalisé dans le fichier preprocessing.py.
+Le pré-traitement est effectué dans preprocessing.py et comprend :
+
+- Le nettoyage des données
+- Le traitement des valeurs manquantes
+- La normalisation et l'encodage des variables
+
+Le fichier qui en résulte est preprocessed_data_all.csv
 
 ## 4. Tentatives de modèles de machine learning
+
+Nous avons utilisé un DecisionTree en modèle baseline pour avoir une idée des performances atteignables. 
+
+Notre modèle final est un LSTM. 
+
+- **Type de modèle** : Réseau de neurones LSTM (Long Short-Term Memory)
+- **Architecture** :
+  - **Première couche LSTM** : 
+    - 50 unités (neurones)
+    - `return_sequences=True` : permet de transmettre les séquences à la couche suivante
+    - Entrée de forme `(30, len(FEATURES))` où `30` est la longueur de la séquence temporelle et `len(FEATURES)` est le nombre de caractéristiques
+  - **Dropout** de 20% après la première couche LSTM pour éviter l'overfitting
+  - **Deuxième couche LSTM** : 
+    - 50 unités (neurones)
+    - `return_sequences=False` : cette couche ne renvoie pas les séquences, mais seulement la sortie de la dernière cellule LSTM
+  - **Dropout** de 20% après la deuxième couche LSTM pour éviter l'overfitting
+  - **Couche Dense (Fully Connected)** : 
+    - 25 unités avec fonction d'activation `relu`
+  - **Couche de sortie** : 
+    - 5 unités avec fonction d'activation `softmax` pour la prédiction multi-classes (5 classes)
+  
+- **Compilation du modèle** :
+  - Optimiseur : `adam`
+  - Fonction de perte : `sparse_categorical_crossentropy` (adaptée pour les labels entiers)
+  - Métrique : `accuracy`
+  
+- **Objectif** : Prédiction d'une classe parmi 5 classes possibles à partir de séquences temporelles.
+
 
 ## 5. Performances et analyse des résultats
 
@@ -70,6 +104,7 @@ Le projet nécessite les bibliothèques suivantes :
 - pandas
 - numpy
 - scikit-learn
+- tensorflow
 
 Ces bibliothèques peuvent être installées en utilisant pip :
-- pip install pandas numpy scikit-learn
+- pip install pandas numpy scikit-learn tensorflow
